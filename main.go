@@ -19,7 +19,8 @@ func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-	mux.Handle("/", handlers.MakeHandler(handlers.HandleLogin))
+	mux.Handle("/", handlers.MakeHandler(handlers.HandleWelcome))
+	mux.Handle("/login", handlers.MakeHandler(handlers.HandleLogin))
 	server := http.Server{
 		Addr:    port,
 		Handler: mux,

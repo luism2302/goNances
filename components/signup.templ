@@ -1,0 +1,51 @@
+package components
+
+templ SignUp(params SignUpParams, errors map[string]string) {
+    @Layout("Sign Up"){
+        <div class="flex flex-col justify-center gap-x-5 gap-y-10 h-screen">
+            <h1 class="self-center font-bold font-mono text-xl">Sign Up</h1>
+            @SignUpForm(params, errors)
+        </div>
+    }
+}
+
+templ SignUpForm(params SignUpParams, errors map[string]string) {
+    <form hx-post="/users" class="self-center" id="signUpForm">
+        <div class="self-center font-mono">
+                <label for="username">Username: </label>
+                @Input(InputParams{
+                    ID: "username",
+                    Type: "text",
+                    Placeholder: "username",
+                    Error: errors["username"],
+                    Value: params.Username,
+                })
+        </div>
+        <br>
+        <div class="self-center font-mono">
+                <label for="password">Password: </label>
+                @Input(InputParams{
+                    ID: "password",
+                    Type: "password",
+                    Placeholder: "password",
+                    Error: errors["password"],
+                    Value: params.Password,
+                })
+        </div>
+        <br>
+        <div class="self-center font-mono">
+                <label for="conf_password">Confirm Password: </label>
+                @Input(InputParams{
+                    ID: "conf_password",
+                    Type: "conf_password",
+                    Placeholder: "conf_password",
+                    Error: errors["conf_password"],
+                    Value: params.ConfPassword,
+                })
+        </div>
+        <br>
+        <div class="flex justify-center gap-x-5 font-mono">
+            <button class="w-24 text-white rounded-sm bg-[2D3C59]"type="submit">Sign Up</button>
+        </div>
+    </form>
+}

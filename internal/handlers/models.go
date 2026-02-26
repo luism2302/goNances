@@ -24,19 +24,3 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, template templ.Compo
 	}
 	return nil
 }
-
-type signUpForm struct {
-	name         string
-	password     string
-	confPassword string
-}
-
-func (s *signUpForm) validatePasswords() (msgs []string) {
-	if s.password == "" {
-		msgs = append(msgs, "Password can't be empty")
-	}
-	if s.password != s.confPassword {
-		msgs = append(msgs, "Passwords don't match")
-	}
-	return msgs
-}

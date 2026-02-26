@@ -1,16 +1,18 @@
 package components
 
-templ Login(params LoginParams, errors map[string]string) {
-    @Layout("Login") {
-        <div class="flex flex-col justify-center gap-x-5 gap-y-10 h-screen">
-            <h1 class="self-center font-bold font-mono text-xl">GoNances</h1>
+templ LoginDisplay(params LoginParams, errors map[string]string) {
+    <div class="flex justify-center items-center w-screen h-screen">
+        <div class="flex justify-center items-center w-96 h-96 bg-white border-2 border-black z-50 shadow-xl/30">
+            <div>
+                <h1>Login</h1>
+            </div>
             @LoginForm(params, errors)
         </div>
-    }
+    </div>
 }
 templ LoginForm(params LoginParams, errors map[string]string) {
-            <form class="self-center" action="/login" method="POST">
-                <div class="self-center font-mono">
+            <form action="/login" method="POST">
+                <div class="font-mono">
                         <label for="username">Username: </label>
                     @Input(InputParams{
                         ID: "usernname",
@@ -21,7 +23,7 @@ templ LoginForm(params LoginParams, errors map[string]string) {
                     })
                 </div>
                 <br>
-                <div class="self-center font-mono">
+                <div class="font-mono">
                         <label for="password">Password: </label>
                         @Input(InputParams{
                             ID: "password",
@@ -32,8 +34,10 @@ templ LoginForm(params LoginParams, errors map[string]string) {
                         })
                 </div>
                 <br>
-                <div class="flex justify-center gap-x-5 font-mono">
+                <div class="font-mono">
                     <button class="w-24 text-white rounded-sm bg-[2D3C59]"type="submit">Login</button>
+                </div>
+                <div>
                     <button class="w-24 text-white rounded-sm bg-[2D3C59]" type="submit" formaction="/signup" formmethod="GET">Sign Up</button>
                 </div>
             </form>

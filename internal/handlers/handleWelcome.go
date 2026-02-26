@@ -7,7 +7,7 @@ import (
 )
 
 func HandleWelcome(w http.ResponseWriter, r *http.Request) error {
-	if err := renderTemplate(w, r, components.Login(components.LoginParams{}, map[string]string{})); err != nil {
+	if err := renderTemplate(w, r, components.LayoutWelcome()); err != nil {
 		return err
 	}
 	return nil

@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
+
+	"github.com/luism2302/goNances/components"
 )
 
 func HandleLogin(w http.ResponseWriter, r *http.Request) error {
-	log.Print("Login request made")
-	return nil
+	return renderTemplate(w, r, components.LoginDisplay(components.LoginParams{}, map[string]string{}))
 }

@@ -1,19 +1,32 @@
 package components
+
 templ header(title string) {
+
     <head>
         <title>{ title }</title>
             <meta charset="UTF-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
             <link href="/static/css/styles.css" rel="stylesheet"/>
-            <script src="htmx.min.js"></script>
+            <script src="/static/htmx.min.js"></script>
     </head>
 }
 
-templ Layout(title string) {
-    @header(title)
+templ LayoutWelcome() {
+    @header("Welcome")
     <body class="bg-[#94A378]">
         <main>
-            { children...}
+            <div id="modal-container"></div>
+            <div class="flex flex-col justify-center items-center gap-y-5 w-screen h-screen">
+                <div>
+                    <h1 class="font-extrabold font-mono text-5xl">GoNances</h1>
+                </div>
+                <div id="login-div">
+                    <button hx-post="/login" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="w-64 h-10 bg-[2D3C59] rounded-md text-white" type="button">Login</button> 
+                </div>
+                <div>
+                    <button hx-post="/signup" hx-trigger="click" class="w-64 h-10 bg-[2D3C59] rounded-md text-white" type="button">Sign Up</button> 
+                </div>
+            </div>
         </main>
     </body>
 }

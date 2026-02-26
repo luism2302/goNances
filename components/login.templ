@@ -1,44 +1,39 @@
 package components
 
 templ LoginDisplay(params LoginParams, errors map[string]string) {
-    <div class="flex justify-center items-center w-screen h-screen">
-        <div class="flex justify-center items-center w-96 h-96 bg-white border-2 border-black z-50 shadow-xl/30">
-            <div>
-                <h1>Login</h1>
-            </div>
-            @LoginForm(params, errors)
-        </div>
+    <div id="login-display" class="flex justify-center items-center w-96 h-96 border-2 border-black bg-[#EEEEEE] z-50 shadow-xl/30 absolute">
+        @LoginForm(params, errors)
     </div>
 }
 templ LoginForm(params LoginParams, errors map[string]string) {
             <form action="/login" method="POST">
-                <div class="font-mono">
-                        <label for="username">Username: </label>
-                    @Input(InputParams{
-                        ID: "usernname",
-                        Type: "text",
-                        Placeholder: "username",
-                        Error: errors["username"],
-                        Value: params.Username,
-                    })
-                </div>
-                <br>
-                <div class="font-mono">
-                        <label for="password">Password: </label>
+                <div class="flex flex-col justify-center items-center gap-y-5">
+                    <div class="font-mono text-[#222831]">
+                            <label for="username">Username: </label>
                         @Input(InputParams{
-                            ID: "password",
-                            Type: "password",
-                            Placeholder: "Password",
-                            Error: errors["password"],
-                            Value: params.Password,
+                            ID: "usernname",
+                            Type: "text",
+                            Placeholder: "Username",
+                            Error: errors["username"],
+                            Value: params.Username,
                         })
-                </div>
-                <br>
-                <div class="font-mono">
-                    <button class="w-24 text-white rounded-sm bg-[2D3C59]"type="submit">Login</button>
-                </div>
-                <div>
-                    <button class="w-24 text-white rounded-sm bg-[2D3C59]" type="submit" formaction="/signup" formmethod="GET">Sign Up</button>
+                    </div>
+                    <div class="font-mono text-[#222831]">
+                            <label for="password">Password: </label>
+                            @Input(InputParams{
+                                ID: "password",
+                                Type: "password",
+                                Placeholder: "Password",
+                                Error: errors["password"],
+                                Value: params.Password,
+                            })
+                    </div>
+                    <div class="font-mono">
+                        <button class="w-64 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold"type="submit">Login</button>
+                    </div>
+                    <div class="font-mono">
+                        <button hx-get="/" hx-target="main" hx-swap="outerHTML" class="w-24 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold">Back</button>
+                    </div>
                 </div>
             </form>
 

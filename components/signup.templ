@@ -1,51 +1,50 @@
 package components
 
-templ SignUp(params SignUpParams, errors map[string]string) {
-    @LayoutWelcome(){
-        <div class="flex flex-col justify-center gap-x-5 gap-y-10 h-screen">
-            <h1 class="self-center font-bold font-mono text-xl">Sign Up</h1>
-            @SignUpForm(params, errors)
-        </div>
-    }
+templ SignUpDisplay(params SignUpParams, errors map[string]string) {
+    <div id="signup-display" class="flex justify-center items-center w-1/4 h-96 border-2 border-black bg-[#EEEEEE] z-50 shadow-xl/30 absolute">
+        @SignUpForm(params, errors)
+    </div>
 }
-
 templ SignUpForm(params SignUpParams, errors map[string]string) {
-    <form hx-post="/users" class="self-center" id="signUpForm">
-        <div class="self-center font-mono">
-                <label for="username">Username: </label>
-                @Input(InputParams{
-                    ID: "username",
-                    Type: "text",
-                    Placeholder: "username",
-                    Error: errors["username"],
-                    Value: params.Username,
-                })
-        </div>
-        <br>
-        <div class="self-center font-mono">
-                <label for="password">Password: </label>
-                @Input(InputParams{
-                    ID: "password",
-                    Type: "password",
-                    Placeholder: "password",
-                    Error: errors["password"],
-                    Value: params.Password,
-                })
-        </div>
-        <br>
-        <div class="self-center font-mono">
-                <label for="conf_password">Confirm Password: </label>
-                @Input(InputParams{
-                    ID: "conf_password",
-                    Type: "conf_password",
-                    Placeholder: "conf_password",
-                    Error: errors["conf_password"],
-                    Value: params.ConfPassword,
-                })
-        </div>
-        <br>
-        <div class="flex justify-center gap-x-5 font-mono">
-            <button class="w-24 text-white rounded-sm bg-[2D3C59]"type="submit">Sign Up</button>
-        </div>
-    </form>
+            <form action="/signup" method="POST">
+                <div class="flex flex-col justify-center items-center gap-y-5">
+                    <div class="font-mono text-[#222831]">
+                            <label for="username">Username: </label>
+                        @Input(InputParams{
+                            ID: "usernname",
+                            Type: "text",
+                            Placeholder: "Username",
+                            Error: errors["username"],
+                            Value: params.Username,
+                        })
+                    </div>
+                    <div class="font-mono text-[#222831]">
+                            <label for="password">Password: </label>
+                            @Input(InputParams{
+                                ID: "password",
+                                Type: "password",
+                                Placeholder: "Password",
+                                Error: errors["password"],
+                                Value: params.Password,
+                            })
+                    </div>
+                    <div class="font-mono text-[#222831]">
+                            <label for="confPassword">Confirm Password: </label>
+                            @Input(InputParams{
+                                ID: "confPassword",
+                                Type: "password",
+                                Placeholder: "Confirm Password",
+                                Error: errors["confPassword"],
+                                Value: params.ConfPassword,
+                            })
+                    </div>
+                    <div class="font-mono">
+                        <button class="w-64 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold"type="submit">Sign Up</button>
+                    </div>
+                    <div class="font-mono">
+                        <button hx-get="/" hx-target="main" hx-swap="outerHTML" class="w-24 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold">Back</button>
+                    </div>
+                </div>
+            </form>
+
 }

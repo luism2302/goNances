@@ -13,18 +13,18 @@ templ header(title string) {
 
 templ LayoutWelcome() {
     @header("Welcome")
-    <body class="bg-[#94A378]">
+    <body class="bg-[#222831]">
         <main>
-            <div id="modal-container"></div>
             <div class="flex flex-col justify-center items-center gap-y-5 w-screen h-screen">
+                <div id="modal-container"></div>
                 <div>
-                    <h1 class="font-extrabold font-mono text-5xl">GoNances</h1>
+                    <h1 class="font-extrabold font-mono text-5xl text-[#EEEEEE]">GoNances</h1>
                 </div>
                 <div id="login-div">
-                    <button hx-post="/login" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="w-64 h-10 bg-[2D3C59] rounded-md text-white" type="button">Login</button> 
+                    <button hx-post="/login" hx-trigger="click" hx-target="#modal-container" hx-swap="outerHTML" class="w-64 h-10 bg-[#FFD369] rounded-md text-[#222831] font-bold" type="button">Login</button> 
                 </div>
-                <div>
-                    <button hx-post="/signup" hx-trigger="click" class="w-64 h-10 bg-[2D3C59] rounded-md text-white" type="button">Sign Up</button> 
+                <div id="signup-div">
+                    <button hx-post="/signup" hx-trigger="click" hx-target="#modal-container" hx-swap="outerHTML" class="w-64 h-10 bg-[#FFD369] rounded-md text-[#222831] font-bold" type="button">Sign Up</button> 
                 </div>
             </div>
         </main>

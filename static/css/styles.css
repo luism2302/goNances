@@ -10,6 +10,8 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
     --font-weight-bold: 700;
@@ -174,8 +176,23 @@
   .z-50 {
     z-index: 50;
   }
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+  .col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+  .col-start-2 {
+    grid-column-start: 2;
+  }
+  .col-start-3 {
+    grid-column-start: 3;
+  }
   .flex {
     display: flex;
+  }
+  .grid {
+    display: grid;
   }
   .h-10 {
     height: calc(var(--spacing) * 10);
@@ -195,11 +212,17 @@
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
+  .w-84 {
+    width: calc(var(--spacing) * 84);
+  }
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
   .w-screen {
     width: 100vw;
+  }
+  .grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   .flex-col {
     flex-direction: column;
@@ -209,6 +232,12 @@
   }
   .justify-center {
     justify-content: center;
+  }
+  .gap-x-10 {
+    column-gap: calc(var(--spacing) * 10);
+  }
+  .gap-y-4 {
+    row-gap: calc(var(--spacing) * 4);
   }
   .gap-y-5 {
     row-gap: calc(var(--spacing) * 5);
@@ -242,6 +271,10 @@
     font-size: var(--text-5xl);
     line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
@@ -252,6 +285,9 @@
   }
   .text-\[\#222831\] {
     color: #222831;
+  }
+  .text-\[\#DC143C\] {
+    color: #DC143C;
   }
   .text-\[\#EEEEEE\] {
     color: #EEEEEE;

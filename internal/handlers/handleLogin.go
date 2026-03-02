@@ -7,5 +7,5 @@ import (
 )
 
 func HandleLogin(w http.ResponseWriter, r *http.Request) error {
-	return renderTemplate(w, r, components.LoginDisplay(components.LoginParams{}, map[string]string{}))
+	return renderTemplate(w, r, components.LoginDisplay(components.NewLoginParams("", ""), map[string]string{}))
 }

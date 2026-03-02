@@ -6,43 +6,49 @@ templ SignUpDisplay(params SignUpParams, errors map[string]string) {
     </div>
 }
 templ SignUpForm(params SignUpParams, errors map[string]string) {
-            <form action="/signup" method="POST">
-                <div class="flex flex-col justify-center items-center gap-y-5">
-                    <div class="font-mono text-[#222831]">
+            <form hx-post="/signup/newUser">
+                <div class="grid grid-cols-6 gap-x-10 gap-y-4">
+                    <div class="col-start-2">
                             <label for="username">Username: </label>
+                    </div>
+                    <div class="col-start-3 col-span-2">
                         @Input(InputParams{
-                            ID: "usernname",
+                            ID: "username",
+                            Name: "username",
                             Type: "text",
                             Placeholder: "Username",
                             Error: errors["username"],
-                            Value: params.Username,
                         })
                     </div>
-                    <div class="font-mono text-[#222831]">
+                    <div class="col-start-2">
                             <label for="password">Password: </label>
+                    </div>
+                    <div class="col-start-3 col-span-2">
                             @Input(InputParams{
                                 ID: "password",
+                                Name: "password",
                                 Type: "password",
                                 Placeholder: "Password",
                                 Error: errors["password"],
-                                Value: params.Password,
                             })
                     </div>
-                    <div class="font-mono text-[#222831]">
-                            <label for="confPassword">Confirm Password: </label>
+                    <div class="col-start-2">
+                            <label for="confPassword">Confirm: </label>
+                    </div>
+                    <div class="col-start-3 col-span-2">
                             @Input(InputParams{
                                 ID: "confPassword",
+                                Name: "confPassword",
                                 Type: "password",
                                 Placeholder: "Confirm Password",
                                 Error: errors["confPassword"],
-                                Value: params.ConfPassword,
                             })
                     </div>
-                    <div class="font-mono">
-                        <button class="w-64 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold"type="submit">Sign Up</button>
+                    <div class="col-start-2 col-span-4">
+                        <button class="w-84 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold"type="submit">Sign Up</button>
                     </div>
-                    <div class="font-mono">
-                        <button hx-get="/" hx-target="main" hx-swap="outerHTML" class="w-24 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold">Back</button>
+                    <div class="col-start-2 col-span-4">
+                        <button hx-get="/" hx-target="main" hx-swap="outerHTML" class="w-84 h-10 text-[#222831] rounded-md bg-[#FFD369] font-bold">Back</button>
                     </div>
                 </div>
             </form>

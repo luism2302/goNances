@@ -22,7 +22,7 @@ func main() {
 	mux.Handle("/", handlers.MakeHandler(handlers.HandleWelcome))
 	mux.Handle("POST /login", handlers.MakeHandler(handlers.HandleLogin))
 	mux.Handle("POST /signup", handlers.MakeHandler(handlers.HandleSignUp))
-	mux.Handle("POST /users", handlers.MakeHandler(handlers.HandleUsersCreate))
+	mux.Handle("POST /signup/newUser", handlers.MakeHandler(handlers.HandleUsersCreate))
 	server := http.Server{
 		Addr:    port,
 		Handler: mux,

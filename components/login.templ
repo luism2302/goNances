@@ -15,7 +15,6 @@ templ LoginForm(params LoginParams, errors map[string]string) {
                             Type: "text",
                             Placeholder: "Username",
                             Error: errors["username"],
-                            Value: params.Username,
                         })
                     </div>
                     <div class="font-mono text-[#222831]">
@@ -25,7 +24,6 @@ templ LoginForm(params LoginParams, errors map[string]string) {
                                 Type: "password",
                                 Placeholder: "Password",
                                 Error: errors["password"],
-                                Value: params.Password,
                             })
                     </div>
                     <div class="font-mono">

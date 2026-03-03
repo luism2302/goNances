@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -32,4 +34,19 @@ type Config struct {
 
 func NewConfig(queries *sqlc.Queries) *Config {
 	return &Config{Queries: queries}
+}
+
+func respondJSON(w http.ResponseWriter, code int, payload any) error {
+	marshaled, err := json.Marshal(payload)
+	if err != nil {
+		return errors.New("Couldn't marshal to json")
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	w.Write(marshaled)
+	return nil
+}
+
+type DeleteResponse struct {
+	Msg string `json:"msg"`
 }

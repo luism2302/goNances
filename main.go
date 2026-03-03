@@ -1,18 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"context"
-	
 
-	"github.com/joho/godotenv"
 	"github.com/jackc/pgx/v5"
-	"github.com/luism2302/goNances/internal/handlers"
+	"github.com/joho/godotenv"
 	"github.com/luism2302/goNances/database/sqlc"
-
+	"github.com/luism2302/goNances/internal/handlers"
 )
 
 func main() {
@@ -48,6 +46,7 @@ func main() {
 	mux.Handle("POST /login", handlers.MakeHandler(handlers.HandleLogin))
 	mux.Handle("POST /signup", handlers.MakeHandler(handlers.HandleSignUp))
 	mux.Handle("POST /signup/newUser", handlers.MakeHandler(cfg.HandleUsersCreate))
+	mux.Handle("GET /api/resetUsers", handlers.MakeHandler(cfg.HandleUsersDelete))
 
 	server := http.Server{
 		Addr:    port,

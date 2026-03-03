@@ -1,13 +1,14 @@
 package handlers
 
 import (
-	"net/http"
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/luism2302/goNances/components"
 	"github.com/luism2302/goNances/database/sqlc"
+	"github.com/luism2302/goNances/internal/auth"
 )
 
 func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) error {
@@ -22,11 +23,15 @@ func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) err
 		err := renderTemplate(w, r, components.SignUpForm(params, errors))
 		return err
 	}
-	//TODO: create new user in db
-	newUserParams := sqlc.CreateUserParams{Username: username, Password: password}
+
+	hashed, err := auth.HashPassword(password)
+	if err != nil {
+		return err
+	}
+	newUserParams := sqlc.CreateUserParams{Username: username, HashedPassword: hashed}
 	user, err := cfg.Queries.CreateUser(context.Background(), newUserParams)
 	if err != nil {
-		fmt.Errorf("Couldn't create new user: %w", err)
+		return fmt.Errorf("Couldn't create new user: %w", err)
 	}
 	log.Print(user)
 	w.Header().Set("HX-Redirect", "/")

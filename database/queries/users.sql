@@ -1,5 +1,5 @@
 -- name: CreateUser :one
-INSERT INTO users(id, username, password, created_at, updated_at) VALUES (
+INSERT INTO users(id, username, hashed_password, created_at, updated_at) VALUES (
 				UUIDV7(),
 				$1,
 				$2,
@@ -7,3 +7,6 @@ INSERT INTO users(id, username, password, created_at, updated_at) VALUES (
 				NOW()
 )
 RETURNING *;
+
+-- name: DeleteAllUsers :exec
+DELETE FROM users;

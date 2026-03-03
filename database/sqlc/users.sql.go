@@ -10,30 +10,39 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users(id, username, password, created_at, updated_at) VALUES (
+INSERT INTO users(id, username, hashed_password, created_at, updated_at) VALUES (
 				UUIDV7(),
 				$1,
 				$2,
 				NOW(),
 				NOW()
 )
-RETURNING id, username, password, created_at, updated_at
+RETURNING id, username, hashed_password, created_at, updated_at
 `
 
 type CreateUserParams struct {
-	Username string
-	Password string
+	Username       string
+	HashedPassword string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRow(ctx, createUser, arg.Username, arg.Password)
+	row := q.db.QueryRow(ctx, createUser, arg.Username, arg.HashedPassword)
 	var i User
 	err := row.Scan(
 		&i.ID,
 		&i.Username,
-		&i.Password,
+		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
 	return i, err
+}
+
+const deleteAllUsers = `-- name: DeleteAllUsers :exec
+DELETE FROM users
+`
+
+func (q *Queries) DeleteAllUsers(ctx context.Context) error {
+	_, err := q.db.Exec(ctx, deleteAllUsers)
+	return err
 }

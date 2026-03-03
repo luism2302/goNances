@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/a-h/templ"
+	"github.com/luism2302/goNances/database/sqlc"
 )
 
 type CustomHandler func(http.ResponseWriter, *http.Request) error
@@ -23,4 +24,12 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, template templ.Compo
 		return fmt.Errorf("Couldn't render template: %w", err)
 	}
 	return nil
+}
+
+type Config struct {
+	Queries *sqlc.Queries
+}
+
+func NewConfig(queries *sqlc.Queries) *Config {
+	return &Config{Queries: queries}
 }

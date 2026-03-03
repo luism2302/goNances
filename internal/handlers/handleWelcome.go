@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"slices"
 	"github.com/luism2302/goNances/components"
 )
 

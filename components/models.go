@@ -12,11 +12,11 @@ type LoginParams struct {
 }
 
 type InputParams struct {
-	Type        string
-	ID          string
-	Name        string
-	Placeholder string
-	Error       string
+	Label string
+	Type  string
+	ID    string
+	Name  string
+	Error string
 }
 
 func NewSignUpParams(username, password, confPassword string) SignUpParams {

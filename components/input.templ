@@ -1,7 +1,11 @@
 package components
 
 templ Input(params InputParams) {
-    <input class="bg-white" type={ params.Type } id={ params.ID } placeholder={ params.Placeholder}  name={ params.Name }/>
-    <br>
-    <span id="errors" class="font-mono text-sm text-[#DC143C]">{ params.Error }</span>
+	<div>
+		<label for={ params.ID } class="font-mono text-sm text-[#222831]">{ params.Label }</label>
+		<input class="bg-white w-14/16" type={ params.Type } id={ params.ID }/>
+		if params.Error!= "" {
+			<span id="errors" class="font-mono text-sm text-[#DC143C]">{ params.Error }</span>
+		}
+	</div>
 }

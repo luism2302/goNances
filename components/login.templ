@@ -12,13 +12,13 @@ templ LoginForm(params LoginParams, errors map[string]string) {
 			<div class="flex flex-wrap justify-center">
 				@Input(InputParams{
 					Label: "Username: ",
-					ID:    "user",
+					ID:    "username",
 					Type:  "text",
 					Error: errors["username"],
 				})
 				@Input(InputParams{
 					Label: "Password: ",
-					ID:    "pass",
+					ID:    "password",
 					Type:  "password",
 					Error: errors["password"],
 				})

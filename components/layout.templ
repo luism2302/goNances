@@ -19,10 +19,10 @@ templ LayoutWelcome() {
 					<h1 class="font-extrabold font-mono text-5xl text-[#EEEEEE]">GoNances</h1>
 				</div>
 				<div class="h-1/20 w-1/6">
-					<button hx-post="/login" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="bg-[#FFD369] rounded-md text-[#222831] font-bold h-full  w-full" type="button">Login</button>
+					<button hx-get="/login" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="bg-[#FFD369] rounded-md text-[#222831] font-bold h-full  w-full" type="button">Login</button>
 				</div>
 				<div class="h-1/20 w-1/6">
-					<button hx-post="/signup" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="bg-[#FFD369] rounded-md text-[#222831] font-bold h-full w-full" type="button">Sign Up</button>
+					<button hx-get="/signup" hx-trigger="click" hx-target="#modal-container" hx-swap="innerHTML" class="bg-[#FFD369] rounded-md text-[#222831] font-bold h-full w-full" type="button">Sign Up</button>
 				</div>
 			</div>
 		</main>

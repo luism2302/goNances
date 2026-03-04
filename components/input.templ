@@ -1,11 +1,11 @@
 package components
 
 templ Input(params InputParams) {
-	<div>
-		<label for={ params.ID } class="font-mono text-sm text-[#222831]">{ params.Label }</label>
-		<input class="bg-white w-14/16" type={ params.Type } id={ params.ID }/>
-		if params.Error!= "" {
-			<span id="errors" class="font-mono text-sm text-[#DC143C]">{ params.Error }</span>
+	<div class="w-14/16 py-5">
+		<label for={ params.ID } class="font-mono text-sm text-[#222831] w-full">{ params.Label }</label>
+		<input class="bg-white w-full" type={ params.Type } id={ params.ID } name={ params.ID }/>
+		if params.Error != "" {
+			<span id="errors" class="font-mono text-sm text-[#DC143C] w-full">{ params.Error }</span>
 		}
 	</div>
 }

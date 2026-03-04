@@ -4,6 +4,7 @@ type SignUpParams struct {
 	Username     string
 	Password     string
 	ConfPassword string
+	UserExists   bool
 }
 
 type LoginParams struct {
@@ -19,20 +20,25 @@ type InputParams struct {
 	Error string
 }
 
-func NewSignUpParams(username, password, confPassword string) SignUpParams {
+func NewSignUpParams(username, password, confPassword string, userExists bool) SignUpParams {
 	return SignUpParams{
 		Username:     username,
 		Password:     password,
 		ConfPassword: confPassword,
+		UserExists:   userExists,
 	}
 }
 
 func (s *SignUpParams) Validate() (errors map[string]string) {
 	errors = make(map[string]string)
 
+	if s.UserExists {
+		errors["username"] = "Username already exists"
+	}
 	if s.Username == "" {
 		errors["username"] = "Username can't be empty"
 	}
+
 	if len(s.Password) < 12 {
 		errors["password"] = "Password must be at least 12 characters"
 	}

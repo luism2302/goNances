@@ -43,9 +43,10 @@ func main() {
 
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	mux.Handle("/", handlers.MakeHandler(handlers.HandleWelcome))
-	mux.Handle("POST /login", handlers.MakeHandler(handlers.HandleLogin))
-	mux.Handle("POST /signup", handlers.MakeHandler(handlers.HandleSignUp))
-	mux.Handle("POST /signup/newUser", handlers.MakeHandler(cfg.HandleUsersCreate))
+	mux.Handle("GET /login", handlers.MakeHandler(handlers.HandleWelcomeLogin))
+	mux.Handle("GET /signup", handlers.MakeHandler(handlers.HandleWelcomeSignUp))
+	mux.Handle("POST /login", handlers.MakeHandler(cfg.HandleLogin))
+	mux.Handle("POST /signup", handlers.MakeHandler(cfg.HandleUsersCreate))
 	mux.Handle("GET /api/resetUsers", handlers.MakeHandler(cfg.HandleUsersDelete))
 
 	server := http.Server{

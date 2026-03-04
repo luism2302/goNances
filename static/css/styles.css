@@ -249,6 +249,12 @@
   .bg-white {
     background-color: var(--color-white);
   }
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
+  }
+  .ps-10 {
+    padding-inline-start: calc(var(--spacing) * 10);
+  }
   .font-mono {
     font-family: var(--font-mono);
   }

@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"context"
+	"database/sql"
+	"errors"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/luism2302/goNances/components"
@@ -16,7 +17,13 @@ func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) err
 	password := r.FormValue("password")
 	confirmPassword := r.FormValue("confPassword")
 
-	params := components.NewSignUpParams(username, password, confirmPassword)
+	_, err := cfg.Queries.GetUserByUsername(context.Background(), username)
+	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+		return err
+	}
+	userExists := err == nil
+	params := components.NewSignUpParams(username, password, confirmPassword, userExists)
+
 	errors := params.Validate()
 
 	if len(errors) > 0 {
@@ -29,11 +36,10 @@ func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) err
 		return err
 	}
 	newUserParams := sqlc.CreateUserParams{Username: username, HashedPassword: hashed}
-	user, err := cfg.Queries.CreateUser(context.Background(), newUserParams)
+	_, err = cfg.Queries.CreateUser(context.Background(), newUserParams)
 	if err != nil {
 		return fmt.Errorf("Couldn't create new user: %w", err)
 	}
-	log.Print(user)
 	w.Header().Set("HX-Redirect", "/")
 	return nil
 }

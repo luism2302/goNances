@@ -7,9 +7,9 @@ templ SignUpDisplay(params SignUpParams, errors map[string]string) {
 }
 
 templ SignUpForm(params SignUpParams, errors map[string]string) {
-	<form hx-post="/signup/newUser" class="h-full w-full">
+	<form hx-post="/signup" class="h-full w-full">
 		<div class="flex flex-col w-full h-full justify-center gap-y-5">
-			<div class="flex flex-wrap justify-center">
+			<div class="flex flex-wrap ps-10">
 				@Input(InputParams{
 					Label: "Username: ",
 					ID:    "username",

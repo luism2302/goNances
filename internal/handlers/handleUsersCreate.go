@@ -7,27 +7,33 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/luism2302/goNances/components"
 	"github.com/luism2302/goNances/database/sqlc"
 	"github.com/luism2302/goNances/internal/auth"
+	"github.com/luism2302/goNances/views/models"
+	"github.com/luism2302/goNances/views/signup"
 )
 
 func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) error {
 	username := r.FormValue("username")
 	password := r.FormValue("password")
 	confirmPassword := r.FormValue("confPassword")
+	errs := make(map[string]string)
 
-	_, err := cfg.Queries.GetUserByUsername(context.Background(), username)
-	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+	params := models.NewSignUpParams(username, password, confirmPassword)
+	errs = params.Validate()
+	if len(errs) > 0 {
+		err := renderTemplate(w, r, signup.SignUpForm(params, errs))
 		return err
 	}
-	userExists := err == nil
-	params := components.NewSignUpParams(username, password, confirmPassword, userExists)
 
-	errors := params.Validate()
+	_, err := cfg.Queries.GetUserByUsername(context.Background(), username)
+	if err == nil {
+		errs["username"] = "User already exists"
+		err := renderTemplate(w, r, signup.SignUpForm(params, errs))
+		return err
+	}
 
-	if len(errors) > 0 {
-		err := renderTemplate(w, r, components.SignUpForm(params, errors))
+	if !errors.Is(err, sql.ErrNoRows) {
 		return err
 	}
 

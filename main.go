@@ -54,7 +54,6 @@ func main() {
 		Handler: mux,
 	}
 
-	//handlers
 	fmt.Printf("Listening and serving on port: %s", port)
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Error: %s", err)

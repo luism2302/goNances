@@ -29,7 +29,7 @@ templ LoginForm(params models.LoginParams, errors map[string]string) {
 				})
 			</div>
 			<div class="flex justify-center font-mono h-1/12">
-				<button class="text-[#222831] rounded-md bg-[#FFD369] font-bold h-full w-1/6" type="submit">Login</button>
+				@components.FormButton(models.FormButtonParams{Type: "submit", Label: "Login"})
 			</div>
 			<div class="flex justify-center font-mono h-1/12">
 				<button hx-get="/" hx-target="main" hx-swap="outerHTML" class="text-[#222831] rounded-md bg-[#FFD369] font-bold h-full w-1/6">Back</button>

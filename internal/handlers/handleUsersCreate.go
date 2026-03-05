@@ -29,8 +29,7 @@ func (cfg *Config) HandleUsersCreate(w http.ResponseWriter, r *http.Request) err
 	_, err := cfg.Queries.GetUserByUsername(context.Background(), username)
 	if err == nil {
 		errs["username"] = "User already exists"
-		err := renderTemplate(w, r, signup.SignUpForm(params, errs))
-		return err
+		return renderTemplate(w, r, signup.SignUpForm(params, errs))
 	}
 
 	if !errors.Is(err, sql.ErrNoRows) {

@@ -35,7 +35,7 @@ templ SignUpForm(params models.SignUpParams, errors map[string]string) {
 				})
 			</div>
 			<div class="flex justify-center h-1/12">
-				<button class="h-full w-1/6 text-[#222831] rounded-md bg-[#FFD369] font-bold" type="submit">Sign Up</button>
+				@components.FormButton(models.FormButtonParams{Type: "submit", Label: "Sign Up"})
 			</div>
 			<div class="flex justify-center h-1/12">
 				<button hx-get="/" hx-target="main" hx-swap="outerHTML" class="h-full w-1/6 text-[#222831] rounded-md bg-[#FFD369] font-bold">Back</button>

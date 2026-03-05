@@ -19,6 +19,11 @@ type InputParams struct {
 	Error string
 }
 
+type FormButtonParams struct {
+	Type  string
+	Label string
+}
+
 func NewSignUpParams(username, password, confPassword string) SignUpParams {
 	return SignUpParams{
 		Username:     username,

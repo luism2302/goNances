@@ -1,0 +1,13 @@
+package components
+
+import "github.com/luism2302/goNances/views/models"
+
+templ Input(params models.InputParams) {
+	<div class="w-14/16 py-5">
+		<label for={ params.ID } class="font-mono text-sm text-[#222831] w-full">{ params.Label }</label>
+		<input class="bg-white w-full" type={ params.Type } id={ params.ID } name={ params.ID }/>
+		if params.Error != "" {
+			<span id="errors" class="font-mono text-sm text-[#DC143C] w-full">{ params.Error }</span>
+		}
+	</div>
+}

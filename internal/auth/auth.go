@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"errors"
 
 	"github.com/alexedwards/argon2id"
@@ -20,4 +22,12 @@ func CheckHashedPassword(password, hashedPassword string) (bool, error) {
 		return false, errors.New("Couldn't check password against hash")
 	}
 	return match, nil
+}
+
+func GenerateToken(size int) (string, error) {
+	randBytes := make([]byte, size)
+	if _, err := rand.Read(randBytes); err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(randBytes), nil
 }

@@ -13,3 +13,6 @@ DELETE FROM users;
 
 -- name: GetUserByUsername :one
 SELECT * FROM users WHERE username = $1;
+
+-- name: AssignTokenToUser :exec
+UPDATE users SET session_token = $1 WHERE id = $2;

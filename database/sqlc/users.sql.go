@@ -7,7 +7,23 @@ package sqlc
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+const assignTokenToUser = `-- name: AssignTokenToUser :exec
+UPDATE users SET session_token = $1 WHERE id = $2
+`
+
+type AssignTokenToUserParams struct {
+	SessionToken pgtype.Text
+	ID           pgtype.UUID
+}
+
+func (q *Queries) AssignTokenToUser(ctx context.Context, arg AssignTokenToUserParams) error {
+	_, err := q.db.Exec(ctx, assignTokenToUser, arg.SessionToken, arg.ID)
+	return err
+}
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users(id, username, hashed_password, created_at, updated_at) VALUES (
@@ -17,7 +33,7 @@ INSERT INTO users(id, username, hashed_password, created_at, updated_at) VALUES 
 				NOW(),
 				NOW()
 )
-RETURNING id, username, hashed_password, created_at, updated_at
+RETURNING id, username, hashed_password, created_at, updated_at, session_token
 `
 
 type CreateUserParams struct {
@@ -34,6 +50,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.SessionToken,
 	)
 	return i, err
 }
@@ -48,7 +65,7 @@ func (q *Queries) DeleteAllUsers(ctx context.Context) error {
 }
 
 const getUserByUsername = `-- name: GetUserByUsername :one
-SELECT id, username, hashed_password, created_at, updated_at FROM users WHERE username = $1
+SELECT id, username, hashed_password, created_at, updated_at, session_token FROM users WHERE username = $1
 `
 
 func (q *Queries) GetUserByUsername(ctx context.Context, username string) (User, error) {
@@ -60,6 +77,7 @@ func (q *Queries) GetUserByUsername(ctx context.Context, username string) (User,
 		&i.HashedPassword,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.SessionToken,
 	)
 	return i, err
 }

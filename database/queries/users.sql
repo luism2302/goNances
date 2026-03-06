@@ -15,4 +15,5 @@ DELETE FROM users;
 SELECT * FROM users WHERE username = $1;
 
 -- name: AssignTokenToUser :exec
-UPDATE users SET session_token = $1 WHERE id = $2;
+UPDATE users SET session_token = $1, updated_at = NOW() WHERE id = $2;
+

@@ -1,14 +1,13 @@
 package handlers
 
 import (
-	"errors"
+	"log"
 	"net/http"
+
+	"github.com/luism2302/goNances/views/base"
 )
 
-func HandleDashboard(w http.ResponseWriter, r *http.Request) error {
-	_, err := r.Cookie("Authorization")
-	if err != nil {
-		return errors.New("Couldn't find Authorizaiton cookie")
-	}
-	return nil
+func (cfg *Config) HandleDashboard(w http.ResponseWriter, r *http.Request) error {
+	log.Println(r.Cookies())
+	return renderTemplate(w, r, base.LayoutDashboard(cfg.CurrentUser))
 }

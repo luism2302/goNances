@@ -51,9 +51,9 @@ func (cfg *Config) HandleLogin(w http.ResponseWriter, r *http.Request) error {
 	if err := cfg.Queries.AssignTokenToUser(context.Background(), assignTokenParams); err != nil {
 		return errors.New("Couldn't assign session token to user")
 	}
-
 	cookie := &http.Cookie{Name: "Authorization", Value: token, HttpOnly: true, Secure: true, MaxAge: 3600}
 	http.SetCookie(w, cookie)
+	cfg.CurrentUser = user.Username
 	w.Header().Set("HX-Redirect", "/dashboard")
 	return nil
 

@@ -48,7 +48,7 @@ func main() {
 	mux.Handle("POST /login", handlers.MakeHandler(cfg.HandleLogin))
 	mux.Handle("POST /signup", handlers.MakeHandler(cfg.HandleUsersCreate))
 	mux.Handle("GET /api/resetUsers", handlers.MakeHandler(cfg.HandleUsersDelete))
-	mux.Handle("GET /dashboard", handlers.MakeHandler(handlers.HandleDashboard))
+	mux.Handle("GET /dashboard", handlers.MakeHandler(cfg.MiddlewareLoggedIn(cfg.HandleDashboard)))
 
 	server := http.Server{
 		Addr:    port,

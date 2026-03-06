@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -21,6 +22,23 @@ func MakeHandler(customHandler CustomHandler) http.HandlerFunc {
 	}
 }
 
+func (cfg *Config) MiddlewareLoggedIn(next CustomHandler) CustomHandler {
+	return func(w http.ResponseWriter, r *http.Request) error {
+		authCookie, err := r.Cookie("Authorization")
+		if err != nil {
+			return errors.New("Couldn't find Authorizaiton cookie")
+		}
+		loggedUser, err := cfg.Queries.GetUserByUsername(context.Background(), cfg.CurrentUser)
+		if err != nil {
+			return fmt.Errorf("Couldn't find user: %s in db", cfg.CurrentUser)
+		}
+		if loggedUser.SessionToken.String != authCookie.Value {
+			return errors.New("Couldn't authenticate user")
+		}
+		return nil
+	}
+}
+
 func renderTemplate(w http.ResponseWriter, r *http.Request, template templ.Component) error {
 	if err := template.Render(r.Context(), w); err != nil {
 		return fmt.Errorf("Couldn't render template: %w", err)
@@ -29,7 +47,8 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, template templ.Compo
 }
 
 type Config struct {
-	Queries *sqlc.Queries
+	Queries     *sqlc.Queries
+	CurrentUser string
 }
 
 func NewConfig(queries *sqlc.Queries) *Config {

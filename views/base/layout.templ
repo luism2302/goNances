@@ -20,3 +20,13 @@ templ LayoutWelcome() {
 		</main>
 	</body>
 }
+
+templ LayoutDashboard(user string) {
+	@components.Header("Dashboard")
+	<body class="bg-[#222831]">
+		<main>
+			<h1>"Welcome"</h1>
+			<p>{ user } </p>
+		</main>
+	</body>
+}

@@ -35,7 +35,7 @@ func (cfg *Config) MiddlewareLoggedIn(next CustomHandler) CustomHandler {
 		if loggedUser.SessionToken.String != authCookie.Value {
 			return errors.New("Couldn't authenticate user")
 		}
-		return nil
+		return next(w, r)
 	}
 }
 

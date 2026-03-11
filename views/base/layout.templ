@@ -25,12 +25,9 @@ templ LayoutDashboard(user string) {
 	@components.Header("Dashboard")
 	<body class="bg-[#222831]">
 		<main>
-			<div class="flex w-screen h-screen">
-				<div class="fixed top-0 left-0 h-16 w-screen m-0 flex bg-[#FFD369] gap-x-5 px-5 place-items-center">
-					<a class="font-extrabold text-xl text-[#222831]">GoNances</a>
-					<a class="font-bold text-lg hover:text-[#EEEEEE] text-[#222831]">Dashboard</a>
-					<a class="font-bold text-lg hover:text-[#EEEEEE] text-[#222831]">Table</a>
-				</div>
+			<div class="flex flex-col w-screen h-screen">
+				@components.NavBar()
+				<div class="h-screen w-screen p-5" id="content"></div>
 			</div>
 		</main>
 	</body>

@@ -1,0 +1,18 @@
+package components
+
+import "github.com/luism2302/goNances/views/models"
+
+templ ExpenseForm(params models.ExpenseParams, errors map[string]string) {
+	<form>
+		@Input(models.InputParams{Label: "Amount: ", Type: "number", ID: "amount", Name: "Amount", Error: errors["amount"]})
+		<legend>Category</legend>
+		<select>
+			<option value="housing">Housing</option>
+			<option value="food">Food</option>
+			<option value="transportation">Transportation</option>
+			<option value="utilities">Utilities</option>
+			<option value="health">Health</option>
+			<option value="personal">Personal</option>
+		</select>
+	</form>
+}

@@ -1,0 +1,7 @@
+package components
+
+import "github.com/luism2302/goNances/views/models"
+
+templ ExpensesContent(params models.ExpenseParams, errors map[string]string) {
+	@ExpenseForm(params, errors)
+}
